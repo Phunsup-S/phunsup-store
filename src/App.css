@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+body{
+  background-color: black;
+}
+.bg-custom-gray {
+  background-color: #2F2F2F;
+}
+
+.bg-custom-yellow {
+  background-color: #9C958B;
+}
+
+*{
+  color: #9C958B;
+}
+
+li{
+  list-style: none;
+}
