@@ -122,9 +122,9 @@ export default function Detail() {
                 <div className="md:flex-1 flex flex-col justify-center items-center">
                     <h1 className="text-3xl font-bold mb-2 mt-6">{album_name}</h1>
                     <p className="mb-2">{album_desc}</p>
-                    <p className="text-sm mb-2">Released: {year_released}</p>
-                    <p className="text-lg mb-2">Price: {album_price} Baht</p>
-                    <div className="flex justify-center space-x-4">
+                    <p className="text-md mb-2">Released: {year_released}</p>
+                    <p className="text-md mb-2">Price: {album_price} Baht</p>
+                    <div className="flex justify-center space-x-4 mt-2">
                         <Button
                             onClick={navigateToYoutube}
                             variant="outlined"
@@ -183,7 +183,7 @@ export default function Detail() {
                             {showAlert && (
                                 <Fade in={showAlert}>
                                     <Alert variant="outlined" severity="success" className='mt-4'>
-                                        เราจะทำการส่งใบเสร็จไปให้ทางไลน์
+                                        The receipt will be sent via line, Enjoy!
                                     </Alert>
                                 </Fade>
                             )}
