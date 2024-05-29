@@ -108,7 +108,7 @@ export default function Navbar() {
             sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap', cursor: 'pointer' }}
             onClick={handleTitleClick}
           >
-            <Typography variant="h5" component="div">
+            <Typography variant="h4" component="div">
               Phunsup's Store
             </Typography>
           </Box>

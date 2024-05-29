@@ -174,8 +174,10 @@ export default function Detail() {
                         
 
                     </div>
+                   <div className='text-xl font-bold mt-6'>
+                   <h1>Popular song in album</h1>
+                   </div>
                     <div className="flex justify-center space-x-4 mt-6">
-
                         <iframe
                             //src={'https://open.spotify.com/embed/track/'+{reccomSong}}
                             src={songLink}
