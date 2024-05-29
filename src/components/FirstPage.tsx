@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import '../App.css'
 export default function FirstPage() {
 
-    const [items, setItems] = useState<{ _id: string, img_url: string, album_name: string, album_desc: string, year_released: string, album_price: number, update_at: string, __v: string }[]>([
+    const [items, setItems] = useState<{ _id: string, img_url: string, album_name: string, album_desc: string, year_released: string, album_price: number, youtube_link: string, spotify_link: string, update_at: string, __v: string }[]>([
     ]);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export default function FirstPage() {
     }, [])
     const ProductsGet = () => {
 
-        fetch("http://localhost:3000/products")
+        fetch("https://testapi-livid.vercel.app/products")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -42,19 +42,16 @@ export default function FirstPage() {
                         <img src={item.img_url} alt={item.album_name} className="w-full h-48 object-cover" />
                         <div className="p-4">
                             <h2 className="text-xl font-bold mb-6">{item.album_name}</h2>
-                            {/* <p className="text-gray-700 mb-2">{item.album_desc}</p>
-                            <p className="text-gray-500 text-sm mb-4">Released: {item.year_released}</p> */}
-
                             <Button
                                 onClick={() => goToDetail(item._id)}
                                 variant="outlined"
                                 sx={{
-                                    color: '#9C958B', // สีของตัวอักษร
-                                    borderColor: '#9C958B', // สีของเส้นขอบ
+                                    color: '#9e958a', // สีของตัวอักษร
+                                    borderColor: '#9e958a', // สีของเส้นขอบ
                                     '&:hover': {
-                                        backgroundColor: '#9C958B', // สีพื้นหลังเมื่อโฮเวอร์
-                                        color: 'white', // สีของตัวอักษรเมื่อโฮเวอร์
-                                        borderColor: '#9C958B', // สีของเส้นขอบเมื่อโฮเวอร์
+                                        backgroundColor: '#9e958a', // สีพื้นหลังเมื่อโฮเวอร์
+                                        color: 'black', // สีของตัวอักษรเมื่อโฮเวอร์
+                                        borderColor: '#9e958a', // สีของเส้นขอบเมื่อโฮเวอร์
                                     },
                                 }}
                             >
@@ -63,6 +60,9 @@ export default function FirstPage() {
                         </div>
                     </div>
                 ))}
+
+
+
             </div>
         </div>
     );
