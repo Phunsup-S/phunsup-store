@@ -3,6 +3,7 @@ import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useUser } from './UserContext';
+import Alert from '@mui/material/Alert';
 
 export default function Detail() {
     const [album_name, setAlbumName] = useState<string>('');
@@ -17,8 +18,9 @@ export default function Detail() {
     const { id } = useParams();
     const { userId } = useUser();
     const { isLoggedIn } = useUser();
-    const {login} = useUser();
+    const { login } = useUser();
     const songLink = "https://open.spotify.com/embed/track/" + reccomSong
+    const [showAlert, setShowAlert] = useState(false);
 
 
     useEffect(() => {
@@ -63,7 +65,10 @@ export default function Detail() {
         fetch("https://testapi-livid.vercel.app/send-message/" + userId, requestOptions)
             .then((response) => response.text())
             .then((result) => {
-                alert('เราจำทำการส่งใบเสร็จไปให้ทางไลน์')
+                setShowAlert(true);
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 2000);
             })
             .catch((error) => console.error(error));
     }
@@ -111,13 +116,12 @@ export default function Detail() {
         <div className="container mx-auto p-4">
             <div className="flex flex-col md:flex-row items-center md:items-center">
                 <img src={imgUrl} alt={album_name} className="w-full md:w-1/2 h-auto aspect-square object-cover mb-4 md:mb-0 md:mr-4" />
-                <div className="md:flex-1 flex flex-col justify-center">
-                    <h1 className="text-3xl font-bold mb-4">{album_name}</h1>
+                <div className="md:flex-1 flex flex-col justify-center items-center">
+                    <h1 className="text-3xl font-bold mb-2 mt-6">{album_name}</h1>
                     <p className="mb-2">{album_desc}</p>
-                    <p className="text-sm mb-4">Released: {year_released}</p>
-                    <p className="text-lg mb-4">Price: {album_price} Baht</p>
+                    <p className="text-sm mb-2">Released: {year_released}</p>
+                    <p className="text-lg mb-2">Price: {album_price} Baht</p>
                     <div className="flex justify-center space-x-4">
-
                         <Button
                             onClick={navigateToYoutube}
                             variant="outlined"
@@ -148,35 +152,39 @@ export default function Detail() {
                         >
                             Spotify
                         </Button>
-
-                        
-                            <Button
-                                onClick={() => {
-                                    if (isLoggedIn) {
-                                        sendMsgbyBody();
-                                    }else{
-                                        login();
-                                    }
-                                }}
-                                variant="outlined"
-                                sx={{
-                                    color: '#9e958a', // สีของตัวอักษร
-                                    borderColor: '#9e958a', // สีของเส้นขอบ
-                                    '&:hover': {
-                                        backgroundColor: '#9e958a', // สีพื้นหลังเมื่อโฮเวอร์
-                                        color: 'black', // สีของตัวอักษรเมื่อโฮเวอร์
-                                        borderColor: '#9e958a', // สีของเส้นขอบเมื่อโฮเวอร์
-                                    },
-                                }}
-                            >
-                                Buy Now
-                            </Button>
-                        
+                        <Button
+                            onClick={() => {
+                                if (isLoggedIn) {
+                                    sendMsgbyBody();
+                                } else {
+                                    login();
+                                }
+                            }}
+                            variant="outlined"
+                            sx={{
+                                color: '#9e958a', // สีของตัวอักษร
+                                borderColor: '#9e958a', // สีของเส้นขอบ
+                                '&:hover': {
+                                    backgroundColor: '#9e958a', // สีพื้นหลังเมื่อโฮเวอร์
+                                    color: 'black', // สีของตัวอักษรเมื่อโฮเวอร์
+                                    borderColor: '#9e958a', // สีของเส้นขอบเมื่อโฮเวอร์
+                                },
+                            }}
+                        >
+                            Buy Now
+                        </Button>
 
                     </div>
-                   <div className='text-xl font-bold mt-6'>
-                   <h1>Popular song in album</h1>
-                   </div>
+                    <div>
+                        {showAlert && (
+                            <Alert variant="outlined" severity="success" className='mt-4'>
+                                เราจะทำการส่งใบเสร็จไปให้ทางไลน์
+                            </Alert>
+                        )}
+                    </div>
+                    <div className='text-xl font-bold mt-6'>
+                        <h1>Popular song in album</h1>
+                    </div>
                     <div className="flex justify-center space-x-4 mt-6">
                         <iframe
                             //src={'https://open.spotify.com/embed/track/'+{reccomSong}}

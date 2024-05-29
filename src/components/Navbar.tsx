@@ -61,7 +61,7 @@ export default function Navbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Profile">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Profile Picture" src={pictureUrl} />
+                <Avatar sx={{ color: 'black', backgroundColor: '#9e958a' }} alt="Profile Picture" src={pictureUrl} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -108,15 +108,15 @@ export default function Navbar() {
             sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap', cursor: 'pointer' }}
             onClick={handleTitleClick}
           >
-            <Typography variant="h4" component="div">
+            <Typography className='colorTypography' variant="h4" component="div">
               Phunsup's Store
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             {isLoggedIn ? (
-              <Button onClick={logout} color="inherit">Logout</Button>
+              <Button  onClick={logout} color="inherit"><div className='colorTypography' >Logout</div></Button>
             ) : (
-              <Button onClick={login} color="inherit">Login</Button>
+              <Button  onClick={login} color="inherit"><div className='colorTypography' >Login</div></Button>
             )}
           </Box>
         </Toolbar>
