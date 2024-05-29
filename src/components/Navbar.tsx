@@ -65,7 +65,7 @@ export default function Navbar() {
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: '45px', }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -82,7 +82,8 @@ export default function Navbar() {
             >
               {isLoggedIn ? (
                 settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu} sx={{ 
+                  <MenuItem key={setting} onClick={handleCloseUserMenu} 
+                  sx={{ 
                     backgroundColor: 'black', 
                     color: '#9e958a',
                     '&:hover': {
@@ -93,7 +94,13 @@ export default function Navbar() {
                   </MenuItem>
                 ))
               ) : (
-                <Button onClick={login} color="inherit">Login</Button>
+                <Button sx={{ 
+                  backgroundColor: 'black', 
+                  color: '#9e958a',
+                  '&:hover': {
+                    backgroundColor: '#333',
+                  }
+                }} onClick={login} color="inherit">Login</Button>
               )}
             </Menu>
           </Box>
