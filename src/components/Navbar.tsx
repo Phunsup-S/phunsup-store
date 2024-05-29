@@ -15,7 +15,7 @@ export default function Navbar() {
   const pages = ['Products', 'Pricing', 'Blog'];
   const settings1 = ['Profile'];
 
-  const settings = [displayName] ;
+  const settings = [displayName];
 
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -59,9 +59,9 @@ export default function Navbar() {
             <p>{displayName}</p>
           </Box> */}
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Profile">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Profile Picture" src={pictureUrl}/>
+                <Avatar alt="Profile Picture" src={pictureUrl} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -80,11 +80,21 @@ export default function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              {isLoggedIn ? (
+                settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu} sx={{ 
+                    backgroundColor: 'black', 
+                    color: '#9e958a',
+                    '&:hover': {
+                      backgroundColor: '#333',
+                    }
+                  }}>
+                    <Typography sx={{ color: '#9e958a' }} textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))
+              ) : (
+                <Button onClick={login} color="inherit">Login</Button>
+              )}
             </Menu>
           </Box>
           <Box
