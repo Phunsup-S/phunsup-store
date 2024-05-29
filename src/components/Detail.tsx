@@ -103,7 +103,10 @@ export default function Detail() {
         fetch("https://testapi-livid.vercel.app/send-message/", requestOptions)
             .then((response) => response.text())
             .then((result) => {
-                alert('เราจะทำการส่งใบเสร็จไปให้ทางไลน์');
+                setShowAlert(true);
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 2000);
             })
             .catch((error) => console.error(error));
     }
