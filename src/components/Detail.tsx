@@ -1,5 +1,5 @@
 import liff from '@line/liff';
-import { Button } from '@mui/material';
+import { Box, Button, Fade } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useUser } from './UserContext';
@@ -68,7 +68,7 @@ export default function Detail() {
                 setShowAlert(true);
                 setTimeout(() => {
                     setShowAlert(false);
-                }, 2000);
+                }, 3000);
             })
             .catch((error) => console.error(error));
     }
@@ -106,7 +106,7 @@ export default function Detail() {
                 setShowAlert(true);
                 setTimeout(() => {
                     setShowAlert(false);
-                }, 2000);
+                }, 3000);
             })
             .catch((error) => console.error(error));
     }
@@ -179,11 +179,16 @@ export default function Detail() {
 
                     </div>
                     <div>
-                        {showAlert && (
-                            <Alert variant="outlined" severity="success" className='mt-4'>
-                                เราจะทำการส่งใบเสร็จไปให้ทางไลน์
-                            </Alert>
-                        )}
+                        <Box sx={{ display: 'flex' }}>
+                            {showAlert && (
+                                <Fade in={showAlert}>
+                                    <Alert variant="outlined" severity="success" className='mt-4'>
+                                        เราจะทำการส่งใบเสร็จไปให้ทางไลน์
+                                    </Alert>
+                                </Fade>
+                            )}
+                        </Box>
+
                     </div>
                     <div className='text-xl font-bold mt-6'>
                         <h1>Popular song in album</h1>
