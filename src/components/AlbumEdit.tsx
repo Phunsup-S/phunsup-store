@@ -25,14 +25,14 @@ export default function AlbumEdit() {
           fetch("https://testapi-livid.vercel.app/products/"+id, requestOptions)
             .then((response) => response.json())
             .then((result) => {
-                    setAlbumName(result['album_name'])
-                    setAlbumDesc(result['album_desc'])
-                    setYear(result['year_released'])
-                    setImg(result['img_url'])
-                    setPrice(result['album_price'])
-                    setYT(result['youtube_link'])
-                    setSpo(result['spotify_link'])
-                    setSong(result['reccom_song'])
+                    setAlbumName(result['albumName'])
+                    setAlbumDesc(result['albumDesc'])
+                    setYear(result['yearReleased'])
+                    setImg(result['imgUrl'])
+                    setPrice(result['albumPrice'])
+                    setYT(result['youtubeLink'])
+                    setSpo(result['spotifyLink'])
+                    setSong(result['reccomSong'])
             })
             .catch((error) => console.error(error));
     },[id])
@@ -43,14 +43,14 @@ export default function AlbumEdit() {
         myHeaders.append("Content-Type", "application/json");
 
         const raw = JSON.stringify({
-            "img_url": imgUrl,
-            "album_name": album_name,
-            "album_desc": album_desc,
-            "year_released": year_released,
-            "album_price": album_price,
-            "youtube_link": ytLink,
-            "spotify_link": spoLink,
-            "reccom_song": reccomSong
+            "imgUrl": imgUrl,
+            "albumName": album_name,
+            "albumDesc": album_desc,
+            "yearReleased": year_released,
+            "albumPrice": album_price,
+            "youtubeLink": ytLink,
+            "spotifyLink": spoLink,
+            "reccomSong": reccomSong
         });
 
         const requestOptions = {
@@ -69,7 +69,7 @@ export default function AlbumEdit() {
             })
             .then(() => {
                 alert("บันทึกข้อมูลแล้ว")
-                window.location.href = '/Admin'
+                window.location.href = '/admin'
             })
             .catch((error) => console.error(error));
 

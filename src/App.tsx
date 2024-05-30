@@ -16,10 +16,10 @@ function App() {
       <Navbar/>
       <Routes>
       <Route path="/" element={ <FirstPage/>}/>
-      <Route path="/Admin" element={ <AdminPage/>}/>
-      <Route path="/Create" element={ <AlbumCreate/>}/>
-      <Route path="Detail/:id" Component={Detail} />
-      <Route path="Edit/:id" Component={AlbumEdit} />
+      <Route path="/admin" element={ <AdminPage/>}/>
+      <Route path="/create" element={ <AlbumCreate/>}/>
+      <Route path="detail/:id" Component={Detail} />
+      <Route path="edit/:id" Component={AlbumEdit} />
       </Routes>
     </div>
     </UserProvider>

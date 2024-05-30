@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useUser } from './UserContext';
 import Alert from '@mui/material/Alert';
+import { getProductsById, sentFlexToLine } from '../services/items';
 
 export default function Detail() {
     const [album_name, setAlbumName] = useState<string>('');
@@ -21,26 +22,21 @@ export default function Detail() {
     const { login } = useUser();
     const songLink = "https://open.spotify.com/embed/track/" + reccomSong
     const [showAlert, setShowAlert] = useState(false);
-
-
     useEffect(() => {
-        const requestOptions = {
-            method: "GET",
-        };
-
-        fetch("https://testapi-livid.vercel.app/products/" + id, requestOptions)
-            .then((response) => response.json())
+        if(id){
+        getProductsById(id)
             .then((result) => {
-                setAlbumName(result['album_name']);
-                setAlbumDesc(result['album_desc']);
-                setYear(result['year_released']);
-                setImg(result['img_url']);
-                setYT(result['youtube_link']);
-                setSpo(result['spotify_link']);
-                setPrice(result['album_price'])
-                setSong(result['reccom_song'])
+                setAlbumName(result['albumName']);
+                setAlbumDesc(result['albumDesc']);
+                setYear(result['yearReleased']);
+                setImg(result['imgUrl']);
+                setYT(result['youtubeLink']);
+                setSpo(result['spotifyLink']);
+                setPrice(result['albumPrice'])
+                setSong(result['reccomSong'])
             })
             .catch((error) => console.error(error));
+        }
     }, [id]);
 
     const navigateToYoutube = () => {
@@ -51,57 +47,20 @@ export default function Detail() {
         window.location.href = spoLink;
     };
 
-    async function sendMsg() {
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer fTLQpURatpFHiI500kevYWlI9WhuuTmzRiuA93JjzraCWZleWQsrAqpJ1zGeLznCbB0TW75jSej4cLanrGUa+K3AsxaWCtLd/NqUWPKUWsmu7CQ5Y5vCAjREi44jUZtHASeELCW6eNvyKRCDfT8DrwdB04t89/1O/w1cDnyilFU=");
-
-        const requestOptions = {
-            method: "POST",
-            headers: myHeaders,
-            //redirect: "follow"
-        };
-
-        fetch("https://testapi-livid.vercel.app/send-message/" + userId, requestOptions)
-            .then((response) => response.text())
-            .then((result) => {
-                setShowAlert(true);
-                setTimeout(() => {
-                    setShowAlert(false);
-                }, 3000);
-            })
-            .catch((error) => console.error(error));
-    }
+    const data = {
+        id: userId,
+        name: album_name,
+        img: imgUrl,
+        price: album_price,
+        date: Date.now().toString(),
+        youtube: ytLink,
+        spotify: spoLink,
+        weburl: window.location.href.toString()
+    };
 
     async function sendMsgbyBody() {
-        const buyTimenow = Date.now();
-        setBuyTime(buyTimenow);
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer fTLQpURatpFHiI500kevYWlI9WhuuTmzRiuA93JjzraCWZleWQsrAqpJ1zGeLznCbB0TW75jSej4cLanrGUa+K3AsxaWCtLd/NqUWPKUWsmu7CQ5Y5vCAjREi44jUZtHASeELCW6eNvyKRCDfT8DrwdB04t89/1O/w1cDnyilFU=");
-
-        const data = {
-            id: userId,
-            name: album_name,
-            img: imgUrl,
-            price: album_price,
-            date: Date.now().toString(),
-            youtube: ytLink,
-            spotify: spoLink,
-            weburl: window.location.href.toString()
-        };
-
-        console.log(data)
-
-        const requestOptions = {
-            method: "POST",
-            headers: myHeaders,
-            body: JSON.stringify(data), // ส่งข้อมูลในรูปแบบ JSON
-            redirect: "follow" as RequestRedirect
-        };
-
-        fetch("https://testapi-livid.vercel.app/send-message/", requestOptions)
-            .then((response) => response.text())
+        if(data){
+            sentFlexToLine(data)
             .then((result) => {
                 setShowAlert(true);
                 setTimeout(() => {
@@ -109,6 +68,7 @@ export default function Detail() {
                 }, 3000);
             })
             .catch((error) => console.error(error));
+        }
     }
 
     async function testlog() {

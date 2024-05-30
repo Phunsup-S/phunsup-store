@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { createProducts } from '../services/items';
 
 export default function AlbumCreate() {
 
@@ -15,43 +16,25 @@ export default function AlbumCreate() {
     const [ytLink, setYT] = useState<string>('');
     const [spoLink, setSpo] = useState<string>('');
     const [reccomSong,setSong] = useState<string>('');
+
+    const raw = JSON.stringify({
+        "imgUrl": imgUrl,
+        "albumName": album_name,
+        "albumDesc": album_desc,
+        "yearReleased": year_released,
+        "albumPrice": album_price,
+        "youtubeLink": ytLink,
+        "spotifyLink": spoLink,
+        "reccomSong": reccomSong
+    });
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();  // เพิ่มการหยุดพฤติกรรมเริ่มต้นของฟอร์ม
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        const raw = JSON.stringify({
-            "img_url": imgUrl,
-            "album_name": album_name,
-            "album_desc": album_desc,
-            "year_released": year_released,
-            "album_price": album_price,
-            "youtube_link": ytLink,
-            "spotify_link": spoLink,
-            "reccom_song": reccomSong
-        });
-
-        const requestOptions = {
-            method: "POST",
-            headers: myHeaders,
-            body: raw,
-            //redirect: "follow"
-        };
-
-        fetch("https://testapi-livid.vercel.app/products", requestOptions)
-            .then((response: Response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok')
-                }
-                return response.json();
-            })
+        createProducts(raw)
             .then(() => {
                 alert("เพื่มข้อมูลแล้ว")
-                window.location.href = '/Admin'
+                window.location.href = '/admin'
             })
             .catch((error) => console.error(error));
-
-
     }
 
     return (
@@ -65,20 +48,20 @@ export default function AlbumCreate() {
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} >
-                            <TextField id="album_name" label="Album Name" variant="outlined" fullWidth required
+                            <TextField id="albumName" label="Album Name" variant="outlined" fullWidth required
                                 onChange={(e) => setAlbumName(e.target.value)} style={{ backgroundColor: 'white', color: 'black'  }}
                             />
                         </Grid>
                         <Grid item xs={12} >
-                            <TextField id="album_desc" label="description" variant="outlined" fullWidth required
+                            <TextField id="albumDesc" label="description" variant="outlined" fullWidth required
                                 onChange={(e) => setAlbumDesc(e.target.value)} style={{ backgroundColor: 'white', color: 'black' }}/>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField id="year_released" label="Year Released" variant="outlined" fullWidth required
+                            <TextField id="yearReleased" label="Year Released" variant="outlined" fullWidth required
                                 onChange={(e) => setYear(e.target.value)} style={{ backgroundColor: 'white', color: 'black' }}/>
                         </Grid>
                         <Grid item xs={12} >
-                            <TextField id="album_price" label="Album price" variant="outlined" fullWidth required
+                            <TextField id="albumPrice" label="Album price" variant="outlined" fullWidth required
                                 onChange={(e) => setPrice(e.target.value)} style={{ backgroundColor: 'white', color: 'black' }}/>
                         </Grid>
                         <Grid item xs={12} >

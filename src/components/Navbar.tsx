@@ -42,7 +42,7 @@ export default function Navbar() {
   };
 
   const handleAdminClick = () => {
-    window.location.href = '/Admin';
+    window.location.href = '/admin';
   };
 
   return (

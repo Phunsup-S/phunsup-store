@@ -10,27 +10,25 @@ import Paper from '@mui/material/Paper';
 import { Avatar, Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import '../App.css'
+import { getProductsList } from '../services/items';
+import { albums } from '../types/albums';
+
+
 export default function FirstPage() {
 
-    const [items, setItems] = useState<{ _id: string, img_url: string, album_name: string, album_desc: string, year_released: string, album_price: number, youtube_link: string, spotify_link: string, update_at: string, __v: string }[]>([
+    const [items, setItems] = useState<albums[]>([
     ]);
 
     useEffect(() => {
-        ProductsGet();
+        getProductsList().then((res)=>{
+            setItems(res)
+        })
     }, [])
-    const ProductsGet = () => {
 
-        fetch("https://testapi-livid.vercel.app/products")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setItems(result);
-                },
-            )
-    }
 
     function goToDetail(id: string) {
-        window.location.href = '/Detail/' + id
+        //window.location.href = '/detail/' + id
+        console.log(items[0].imgUrl)
     }
 
     return (
@@ -39,9 +37,9 @@ export default function FirstPage() {
             <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" >
                 {items.map(item => (
                     <div key={item._id} className="bg-custom-gray shadow-lg rounded-lg overflow-hidden mb-6">
-                        <img src={item.img_url} alt={item.album_name} className="w-full h-48 object-cover" />
+                        <img src={item.imgUrl} alt={item.albumName} className="w-full h-48 object-cover" />
                         <div className="p-4">
-                            <h2 className="text-xl font-bold mb-6">{item.album_name}</h2>
+                            <h2 className="text-xl font-bold mb-6">{item.albumName}</h2>
                             <Button
                                 onClick={() => goToDetail(item._id)}
                                 variant="outlined"

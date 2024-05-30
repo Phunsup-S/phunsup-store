@@ -10,52 +10,31 @@ import Paper from '@mui/material/Paper';
 import { Avatar, Box, Link } from '@mui/material';
 import Button from '@mui/material/Button';
 import '../App.css'
+import { deleteProducts, getProductsList } from '../services/items';
+import { albums } from '../types/albums';
 export default function AdminPage() {
 
-    const [items, setItems] = useState<{ _id: string, img_url: string, album_name: string, album_desc: string, year_released: string, album_price: number, youtube_link: string, spotify_link: string, update_at: string, __v: string }[]>([
+    const [items, setItems] = useState<albums[]>([
     ]);
 
     useEffect(() => {
-        ProductsGet();
+        getProductsList().then((res)=>{
+            setItems(res)
+        })
     }, [])
-    const ProductsGet = () => {
-
-        fetch("https://testapi-livid.vercel.app/products")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setItems(result);
-                },
-            )
-    }
 
     function goToDetail(id: string) {
-        window.location.href = '/Detail/' + id
+        window.location.href = '/detail/' + id
     }
     function handleDelete(id: string) {
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        const raw = JSON.stringify({
-            "id": id
-        });
-
-        const requestOptions = {
-            method: "DELETE",
-            headers: myHeaders,
-            body: raw,
-        };
-
-        fetch("https://testapi-livid.vercel.app/products/" + id, requestOptions)
-            .then((response) => response.json())
-            .then(() => {
-                alert("ลบข้อมูลแล้ว")
-                ProductsGet();
-            })
-            .catch((error) => console.error(error));
+        deleteProducts(id).then(() => {
+            alert("ลบข้อมูลแล้ว")
+            getProductsList();
+            window.location.href = '/admin'
+        })
     }
     function handleEdit(id: string) {
-        window.location.href = '/Edit/' + id
+        window.location.href = '/edit/' + id
     }
 
     return (
@@ -64,7 +43,7 @@ export default function AdminPage() {
             <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" >
                 {items.map(item => (
                     <div key={item._id} className="bg-custom-gray shadow-lg rounded-lg overflow-hidden mb-6 relative">
-                        <img src={item.img_url} alt={item.album_name} className="w-full h-48 object-cover" />
+                        <img src={item.imgUrl} alt={item.albumName} className="w-full h-48 object-cover" />
                         <div className="absolute top-0 right-0 p-2">
                             <Button onClick={() => handleEdit(item._id)} >Edit</Button>
                             <button style={{ color: 'red' }}
@@ -75,7 +54,7 @@ export default function AdminPage() {
                             </button>
                         </div>
                         <div className="p-4">
-                            <h2 className="text-xl font-bold mb-6">{item.album_name}</h2>
+                            <h2 className="text-xl font-bold mb-6">{item.albumName}</h2>
                             <Button
                                 onClick={() => goToDetail(item._id)}
                                 variant="outlined"
