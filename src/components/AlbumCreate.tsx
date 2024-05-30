@@ -8,21 +8,21 @@ import { createProducts } from '../services/items';
 
 export default function AlbumCreate() {
 
-    const [album_name, setAlbumName] = useState<string>('');
-    const [album_desc, setAlbumDesc] = useState<string>('');
-    const [year_released, setYear] = useState<string>('');
+    const [albumName, setAlbumName] = useState<string>('');
+    const [albumDesc, setAlbumDesc] = useState<string>('');
+    const [yearReleased, setYear] = useState<string>('');
     const [imgUrl, setImg] = useState<string>('');
-    const [album_price, setPrice] = useState<string>('');
+    const [albumPrice, setPrice] = useState<string>('');
     const [ytLink, setYT] = useState<string>('');
     const [spoLink, setSpo] = useState<string>('');
     const [reccomSong,setSong] = useState<string>('');
 
     const raw = JSON.stringify({
         "imgUrl": imgUrl,
-        "albumName": album_name,
-        "albumDesc": album_desc,
-        "yearReleased": year_released,
-        "albumPrice": album_price,
+        "albumName": albumName,
+        "albumDesc": albumDesc,
+        "yearReleased": yearReleased,
+        "albumPrice": albumPrice,
         "youtubeLink": ytLink,
         "spotifyLink": spoLink,
         "reccomSong": reccomSong

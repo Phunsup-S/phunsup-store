@@ -5,25 +5,22 @@ import Container from '@mui/material/Container';
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { getProductsById, putProducts } from '../services/items';
 
 export default function AlbumEdit() {
     const {id} = useParams();
-    const [album_name, setAlbumName] = useState<string>('');
-    const [album_desc, setAlbumDesc] = useState<string>('');
-    const [year_released, setYear] = useState<string>('');
+    const [albumName, setAlbumName] = useState<string>('');
+    const [albumDesc, setAlbumDesc] = useState<string>('');
+    const [yearReleased, setYear] = useState<string>('');
     const [imgUrl, setImg] = useState<string>('');
-    const [album_price, setPrice] = useState<string>('');
+    const [albumPrice, setPrice] = useState<string>('');
     const [ytLink, setYT] = useState<string>('');
     const [spoLink, setSpo] = useState<string>('');
     const [reccomSong,setSong] = useState<string>('');
 
     useEffect(()=>{
-        const requestOptions = {
-            method: "GET",
-          };
-          
-          fetch("https://testapi-livid.vercel.app/products/"+id, requestOptions)
-            .then((response) => response.json())
+        if(id){
+            getProductsById(id)
             .then((result) => {
                     setAlbumName(result['albumName'])
                     setAlbumDesc(result['albumDesc'])
@@ -35,44 +32,31 @@ export default function AlbumEdit() {
                     setSong(result['reccomSong'])
             })
             .catch((error) => console.error(error));
+        }
     },[id])
+
+    const raw = JSON.stringify({
+        "imgUrl": imgUrl,
+        "albumName": albumName,
+        "albumDesc": albumDesc,
+        "yearReleased": yearReleased,
+        "albumPrice": albumPrice,
+        "youtubeLink": ytLink,
+        "spotifyLink": spoLink,
+        "reccomSong": reccomSong
+    });
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();  // เพิ่มการหยุดพฤติกรรมเริ่มต้นของฟอร์ม
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        const raw = JSON.stringify({
-            "imgUrl": imgUrl,
-            "albumName": album_name,
-            "albumDesc": album_desc,
-            "yearReleased": year_released,
-            "albumPrice": album_price,
-            "youtubeLink": ytLink,
-            "spotifyLink": spoLink,
-            "reccomSong": reccomSong
-        });
-
-        const requestOptions = {
-            method: "PUT",
-            headers: myHeaders,
-            body: raw,
-            //redirect: "follow"
-        };
-
-        fetch("https://testapi-livid.vercel.app/products/"+ id , requestOptions)
-            .then((response: Response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok')
-                }
-                return response.json();
-            })
+        if(id){
+            putProducts(id,raw)
             .then(() => {
                 alert("บันทึกข้อมูลแล้ว")
                 window.location.href = '/admin'
             })
             .catch((error) => console.error(error));
 
+        }
 
     }
 
@@ -87,21 +71,21 @@ export default function AlbumEdit() {
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} >
-                            <TextField id="album_name" label="Album Name" variant="outlined" fullWidth required
-                                onChange={(e) => setAlbumName(e.target.value)} value={album_name} style={{ backgroundColor: 'white', color: 'black' }}
+                            <TextField id="albumName" label="Album Name" variant="outlined" fullWidth required
+                                onChange={(e) => setAlbumName(e.target.value)} value={albumName} style={{ backgroundColor: 'white', color: 'black' }}
                             />
                         </Grid>
                         <Grid item xs={12} >
-                            <TextField id="album_desc" label="description" variant="outlined" fullWidth required
-                                onChange={(e) => setAlbumDesc(e.target.value)} value={album_desc} style={{ backgroundColor: 'white', color: 'black' }} />
+                            <TextField id="albumDesc" label="description" variant="outlined" fullWidth required
+                                onChange={(e) => setAlbumDesc(e.target.value)} value={albumDesc} style={{ backgroundColor: 'white', color: 'black' }} />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField id="year_released" label="Year Released" variant="outlined" fullWidth required
-                                onChange={(e) => setYear(e.target.value)} value={year_released} style={{ backgroundColor: 'white', color: 'black' }} />
+                            <TextField id="yearReleased" label="Year Released" variant="outlined" fullWidth required
+                                onChange={(e) => setYear(e.target.value)} value={yearReleased} style={{ backgroundColor: 'white', color: 'black' }} />
                         </Grid>
                         <Grid item xs={12} >
-                            <TextField id="album_price" label="Album price" variant="outlined" fullWidth required
-                                onChange={(e) => setPrice(e.target.value)} value={album_price} style={{ backgroundColor: 'white', color: 'black' }} />
+                            <TextField id="albumPrice" label="Album price" variant="outlined" fullWidth required
+                                onChange={(e) => setPrice(e.target.value)} value={albumPrice} style={{ backgroundColor: 'white', color: 'black' }} />
                         </Grid>
                         <Grid item xs={12} >
                             <TextField id="imgUrl" label="Album Image" variant="outlined" fullWidth required

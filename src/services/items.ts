@@ -48,6 +48,26 @@ export const getProductsById = async (id: string) =>{
     return await response.json();
 }
 
+export const putProducts = async (id:string, raw: string) =>{
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const requestOptions = {
+        method: "PUT",
+        headers: myHeaders,
+        body: raw,
+        //redirect: "follow"
+    };
+
+    return fetch("https://testapi-livid.vercel.app/products/"+ id , requestOptions)
+        .then((response: Response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok')
+            }
+            return response.json();
+        })
+}
+
 export const sentFlexToLine = async (data: { 
     id: string, 
     name: string, 

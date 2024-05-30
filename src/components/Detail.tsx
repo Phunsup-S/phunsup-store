@@ -7,14 +7,13 @@ import Alert from '@mui/material/Alert';
 import { getProductsById, sentFlexToLine } from '../services/items';
 
 export default function Detail() {
-    const [album_name, setAlbumName] = useState<string>('');
-    const [album_desc, setAlbumDesc] = useState<string>('');
-    const [year_released, setYear] = useState<string>('');
+    const [albumName, setAlbumName] = useState<string>('');
+    const [albumDesc, setAlbumDesc] = useState<string>('');
+    const [yearReleased, setYear] = useState<string>('');
     const [imgUrl, setImg] = useState<string>('');
     const [ytLink, setYT] = useState<string>('');
     const [spoLink, setSpo] = useState<string>('');
-    const [album_price, setPrice] = useState<string>('');
-    const [buyTime, setBuyTime] = useState<number>();
+    const [albumPrice, setPrice] = useState<string>('');
     const [reccomSong, setSong] = useState<string>('');
     const { id } = useParams();
     const { userId } = useUser();
@@ -49,9 +48,9 @@ export default function Detail() {
 
     const data = {
         id: userId,
-        name: album_name,
+        name: albumName,
         img: imgUrl,
-        price: album_price,
+        price: albumPrice,
         date: Date.now().toString(),
         youtube: ytLink,
         spotify: spoLink,
@@ -78,12 +77,12 @@ export default function Detail() {
     return (
         <div className="container mx-auto p-4">
             <div className="flex flex-col md:flex-row items-center md:items-center">
-                <img src={imgUrl} alt={album_name} className="w-full md:w-1/2 h-auto aspect-square object-cover mb-4 md:mb-0 md:mr-4" />
+                <img src={imgUrl} alt={albumName} className="w-full md:w-1/2 h-auto aspect-square object-cover mb-4 md:mb-0 md:mr-4" />
                 <div className="md:flex-1 flex flex-col justify-center items-center">
-                    <h1 className="text-3xl font-bold mb-2 mt-6">{album_name}</h1>
-                    <p className="mb-2">{album_desc}</p>
-                    <p className="text-md mb-2">Released: {year_released}</p>
-                    <p className="text-md mb-2">Price: {album_price} Baht</p>
+                    <h1 className="text-3xl font-bold mb-2 mt-6">{albumName}</h1>
+                    <p className="mb-2">{albumDesc}</p>
+                    <p className="text-md mb-2">Released: {yearReleased}</p>
+                    <p className="text-md mb-2">Price: {albumPrice} Baht</p>
                     <div className="flex justify-center space-x-4 mt-2">
                         <Button
                             onClick={navigateToYoutube}

@@ -27,8 +27,7 @@ export default function FirstPage() {
 
 
     function goToDetail(id: string) {
-        //window.location.href = '/detail/' + id
-        console.log(items[0].imgUrl)
+        window.location.href = '/detail/' + id
     }
 
     return (

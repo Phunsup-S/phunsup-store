@@ -12,8 +12,7 @@ import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 export default function Navbar() {
   const { userId, displayName, pictureUrl, isLoggedIn, login, logout } = useUser();
 
-  const pages = ['Products', 'Pricing', 'Blog'];
-  const settings1 = ['Profile'];
+
 
   const settings = [displayName];
 
