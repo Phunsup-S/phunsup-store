@@ -7,6 +7,7 @@ import Alert from '@mui/material/Alert';
 import { getProductsById, sentFlexToLine } from '../services/items';
 
 export default function Detail() {
+    const [productId,setProductId] = useState<string>('');
     const [albumName, setAlbumName] = useState<string>('');
     const [albumDesc, setAlbumDesc] = useState<string>('');
     const [yearReleased, setYear] = useState<string>('');
@@ -25,6 +26,7 @@ export default function Detail() {
         if(id){
         getProductsById(id)
             .then((result) => {
+                setProductId(result['_id'])
                 setAlbumName(result['albumName']);
                 setAlbumDesc(result['albumDesc']);
                 setYear(result['yearReleased']);
@@ -47,14 +49,8 @@ export default function Detail() {
     };
 
     const data = {
-        id: userId,
-        name: albumName,
-        img: imgUrl,
-        price: albumPrice,
-        date: Date.now().toString(),
-        youtube: ytLink,
-        spotify: spoLink,
-        weburl: window.location.href.toString()
+        userId: userId,
+        productId: productId
     };
 
     async function sendMsgbyBody() {
@@ -135,6 +131,7 @@ export default function Detail() {
                         >
                             Buy Now
                         </Button>
+                        
 
                     </div>
                     <div>

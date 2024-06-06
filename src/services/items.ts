@@ -69,14 +69,8 @@ export const putProducts = async (id:string, raw: string) =>{
 }
 
 export const sentFlexToLine = async (data: { 
-    id: string, 
-    name: string, 
-    img: string, 
-    price: string, 
-    date: string, 
-    youtube: string, 
-    spotify: string, 
-    weburl: string 
+    userId: string, 
+    productId: string
   }) =>{
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
