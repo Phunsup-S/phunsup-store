@@ -108,7 +108,7 @@ export default function Navbar() {
             onClick={handleTitleClick}
           >
             <Typography className='colorTypography' variant="h4" component="div">
-              Phunsup's Store
+              Kwanpitcha Store
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
