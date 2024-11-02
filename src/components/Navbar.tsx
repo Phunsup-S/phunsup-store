@@ -111,13 +111,13 @@ export default function Navbar() {
             Kwanpitcha'S Store
             </Typography>
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          {/* <Box sx={{ display: 'flex', alignItems: 'center' }}>
             {isLoggedIn ? (
               <Button  onClick={logout} color="inherit"><div className='colorTypography' >Logout</div></Button>
             ) : (
               <Button  onClick={login} color="inherit"><div className='colorTypography' >Login</div></Button>
             )}
-          </Box>
+          </Box> */}
         </Toolbar>
       </AppBar>
       <Divider sx={{ bgcolor: '#9e958a' }} />
