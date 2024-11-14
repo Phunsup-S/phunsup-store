@@ -110,7 +110,7 @@ export default function Detail() {
                         >
                             Spotify
                         </Button>
-                        {/* <Button
+                        <Button
                             onClick={() => {
                                 if (isLoggedIn) {
                                     sendMsgbyBody();
@@ -130,7 +130,7 @@ export default function Detail() {
                             }}
                         >
                             Buy Now
-                        </Button> */}
+                        </Button>
                         
 
                     </div>

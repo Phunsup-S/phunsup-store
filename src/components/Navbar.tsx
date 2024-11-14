@@ -57,7 +57,7 @@ export default function Navbar() {
             <Avatar alt="Profile Picture" src={pictureUrl} sx={{ mr: 2 }} />
             <p>{displayName}</p>
           </Box> */}
-          {/* <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Profile">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar sx={{ color: 'black', backgroundColor: '#9e958a' }} alt="Profile Picture" src={pictureUrl} />
@@ -102,22 +102,22 @@ export default function Navbar() {
                 }} onClick={login} color="inherit">Login</Button>
               )}
             </Menu>
-          </Box> */}
+          </Box>
           <Box
             sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap', cursor: 'pointer' }}
             onClick={handleTitleClick}
           >
             <Typography className='colorTypography' variant="h4" component="div">
-            Kwanpitcha Music
+              Kwanpitcha Store
             </Typography>
           </Box>
-          {/* <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
             {isLoggedIn ? (
               <Button  onClick={logout} color="inherit"><div className='colorTypography' >Logout</div></Button>
             ) : (
               <Button  onClick={login} color="inherit"><div className='colorTypography' >Login</div></Button>
             )}
-          </Box> */}
+          </Box>
         </Toolbar>
       </AppBar>
       <Divider sx={{ bgcolor: '#9e958a' }} />
